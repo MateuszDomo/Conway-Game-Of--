@@ -1,4 +1,4 @@
-package main
+package terminal_utils
 
 import (
 	"fmt"
@@ -22,3 +22,19 @@ func TerminalClear() {
 	cmd.Stdout = os.Stdout
 	cmd.Run()
 }
+
+func TerminalSetColor(color TerminalColor) {
+	fmt.Println(color)
+}
+
+type TerminalColor string
+
+const (
+	Red     TerminalColor = "\033[31m"
+	Green   TerminalColor = "\033[32m"
+	Yellow  TerminalColor = "\033[33m"
+	Blue    TerminalColor = "\033[34m"
+	Magenta TerminalColor = "\033[35m"
+	Cyan    TerminalColor = "\033[36m"
+	Reset   TerminalColor = "\033[0m"
+)

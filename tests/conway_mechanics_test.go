@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"conway-v2/utils"
+	"conway-v2/game_utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -24,7 +24,7 @@ func TestCalcNumNeighborsWithNeighbors(t *testing.T) {
 	cells[1][2] = 1
 	cells[2][1] = 1
 
-	neighbors := utils.CalcNumNeighbors(1, 1, height, width, &cells)
+	neighbors := game_utils.CalcNumNeighbors(1, 1, height, width, &cells)
 
 	assert.Equal(t, 4, neighbors)
 }
@@ -44,7 +44,7 @@ func TestCalcNumNeighborsWithNoNeighbors(t *testing.T) {
 	// 0000
 	cells[0][0] = 1
 
-	neighbors := utils.CalcNumNeighbors(1, 2, height, width, &cells)
+	neighbors := game_utils.CalcNumNeighbors(1, 2, height, width, &cells)
 
 	assert.Equal(t, 0, neighbors)
 }
@@ -65,7 +65,7 @@ func TestCalcNumNeighborsWrappedAround(t *testing.T) {
 	cells[0][0] = 1
 	cells[1][0] = 1
 
-	neighbors := utils.CalcNumNeighbors(1, 2, height, width, &cells)
+	neighbors := game_utils.CalcNumNeighbors(1, 2, height, width, &cells)
 
 	assert.Equal(t, 2, neighbors)
 }
@@ -73,7 +73,7 @@ func TestCalcNumNeighborsWrappedAround(t *testing.T) {
 func TestCalCurrentStateCond1(t *testing.T) {
 	neighbors := 1
 	prev_state := 1
-	state := utils.CalcCurrentState(neighbors, prev_state)
+	state := game_utils.CalcCurrentState(neighbors, prev_state)
 
 	assert.Equal(t, 0, state)
 }
@@ -81,7 +81,7 @@ func TestCalCurrentStateCond1(t *testing.T) {
 func TestCalCurrentStateCond2(t *testing.T) {
 	neighbors := 2
 	prev_state := 1
-	state := utils.CalcCurrentState(neighbors, prev_state)
+	state := game_utils.CalcCurrentState(neighbors, prev_state)
 
 	assert.Equal(t, 1, state)
 }
@@ -89,7 +89,7 @@ func TestCalCurrentStateCond2(t *testing.T) {
 func TestCalCurrentStateCond3(t *testing.T) {
 	neighbors := 4
 	prev_state := 1
-	state := utils.CalcCurrentState(neighbors, prev_state)
+	state := game_utils.CalcCurrentState(neighbors, prev_state)
 
 	assert.Equal(t, 0, state)
 }
@@ -97,7 +97,33 @@ func TestCalCurrentStateCond3(t *testing.T) {
 func TestCalCurrentStateCond4(t *testing.T) {
 	neighbors := 3
 	prev_state := 0
-	state := utils.CalcCurrentState(neighbors, prev_state)
+	state := game_utils.CalcCurrentState(neighbors, prev_state)
 
 	assert.Equal(t, 1, state)
+}
+
+func TestRandomlyPopulateCells(t *testing.T) {
+	cells1 := make([][]int, 15)
+	for i := 0; i < 15; i++ {
+		cells1[i] = make([]int, 15)
+	}
+
+	cells2 := make([][]int, 15)
+	for i := 0; i < 15; i++ {
+		cells2[i] = make([]int, 15)
+	}
+
+	game_utils.RandomlyPopulateCells(15, 15, &cells1)
+	game_utils.RandomlyPopulateCells(15, 15, &cells2)
+
+	changed := false
+	for i := 0; i < 15; i++ {
+		for j := 0; j < 15; j++ {
+			if changed == false && cells1[i][j] != cells2[i][j] {
+				changed = true
+			}
+		}
+	}
+
+	assert.True(t, changed)
 }

@@ -1,4 +1,4 @@
-package utils
+package game_utils
 
 import (
 	"math/rand"
