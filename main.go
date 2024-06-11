@@ -13,7 +13,7 @@ func main() {
 	// Hide cursor
 	fmt.Print("\033[?25l")
 
-	game := NewConwayGame(20, 50, 0, 0, terminal_utils.Red)
+	game := NewConwayGame(20, 50, 0, 0, terminal_utils.TerminalRandomColor())
 	game.RandomlyPopulate()
 
 	for {

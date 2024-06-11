@@ -2,6 +2,7 @@ package terminal_utils
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"os/exec"
 	"strconv"
@@ -25,6 +26,12 @@ func TerminalClear() {
 
 func TerminalSetColor(color TerminalColor) {
 	fmt.Println(color)
+}
+
+var colors = [...]TerminalColor{Red, Green, Yellow, Blue, Magenta, Cyan}
+
+func TerminalRandomColor() TerminalColor {
+	return colors[rand.Intn(len(colors))]
 }
 
 type TerminalColor string

@@ -43,13 +43,13 @@ func (game *ConwayGame) PlayCycle() {
 			state := game_utils.CalcCurrentState(neighbors, game.cells[r][c])
 
 			if state != game.cells[r][c] {
-				row := r + (game.height * game.gridOffsetH)
-				col := c + (game.width * game.gridOffsetW)
+				terminal_row := r + (game.height * game.gridOffsetH)
+				terminal_col := c + (game.width * game.gridOffsetW)
 				if state == 1 {
-					terminal_utils.TerminalWrite(row, col, "█")
+					terminal_utils.TerminalWrite(terminal_row, terminal_col, "█")
 				} else {
 
-					terminal_utils.TerminalWrite(row, col, " ")
+					terminal_utils.TerminalWrite(terminal_row, terminal_col, " ")
 				}
 			}
 
