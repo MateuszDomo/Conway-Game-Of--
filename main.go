@@ -3,7 +3,6 @@ package main
 import (
 	"conway-v2/terminal_utils"
 	"fmt"
-	"time"
 )
 
 func main() {
@@ -13,11 +12,9 @@ func main() {
 	// Hide cursor
 	fmt.Print("\033[?25l")
 
-	game := NewConwayGame(20, 50, 0, 0, terminal_utils.TerminalRandomColor())
-	game.RandomlyPopulate()
+	conway_grid := NewConwayGrid(1, 3, 10)
 
 	for {
-		game.PlayCycle()
-		time.Sleep(85 * time.Millisecond)
+		conway_grid.Run()
 	}
 }

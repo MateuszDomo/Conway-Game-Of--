@@ -2,11 +2,38 @@ package terminal_utils
 
 import (
 	"fmt"
+	"golang.org/x/term"
 	"math/rand"
 	"os"
 	"os/exec"
 	"strconv"
 )
+
+func EnableDebug() {
+	fmt.Print("\033c")  // Rest terminal
+	fmt.Print("\033[H") // Send cursor to top left
+}
+
+type TerminalDimensions struct {
+	width  int
+	height int
+}
+
+func TerminalGetDimensions() TerminalDimensions {
+	fd := int(os.Stdout.Fd())
+
+	width, height, err := term.GetSize(fd)
+	if err != nil {
+		EnableDebug()
+		fmt.Println("Error: ", err)
+		return TerminalDimensions{}
+	}
+
+	return TerminalDimensions{
+		width,
+		height,
+	}
+}
 
 func TerminalWrite(row int, col int, val string) {
 	// 1 based
