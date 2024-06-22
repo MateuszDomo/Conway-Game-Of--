@@ -1,7 +1,6 @@
-package main
+package conway_utils
 
 import (
-	"conway-v2/game_utils"
 	"conway-v2/terminal_utils"
 )
 
@@ -39,12 +38,15 @@ func (game *ConwayGame) PlayCycle() {
 	}
 	for r := 0; r < game.height; r++ {
 		for c := 0; c < game.width; c++ {
-			neighbors := game_utils.CalcNumNeighbors(r, c, game.height, game.width, &game.cells)
-			state := game_utils.CalcCurrentState(neighbors, game.cells[r][c])
+
+			neighbors := CalcNumNeighbors(r, c, game.height, game.width, game)
+			state := CalcCurrentState(neighbors, game.cells[r][c])
 
 			if state != game.cells[r][c] {
+
 				terminal_row := r + (game.height * game.gridOffsetH)
 				terminal_col := c + (game.width * game.gridOffsetW)
+
 				if state == 1 {
 					terminal_utils.TerminalWrite(terminal_row, terminal_col, "█")
 				} else {
@@ -60,6 +62,22 @@ func (game *ConwayGame) PlayCycle() {
 	game.cells = cells_cp
 }
 
+func (game *ConwayGame) WriteGameTerminal(clear bool) {
+	for r := 0; r < game.height; r++ {
+		for c := 0; c < game.width; c++ {
+			if game.cells[r][c] == 1 {
+				terminal_row := r + (game.height * game.gridOffsetH)
+				terminal_col := c + (game.width * game.gridOffsetW)
+				if clear {
+					terminal_utils.TerminalWrite(terminal_row, terminal_col, " ")
+				} else {
+					terminal_utils.TerminalWrite(terminal_row, terminal_col, "█")
+				}
+			}
+		}
+	}
+}
+
 func (game *ConwayGame) RandomlyPopulate() {
-	game_utils.RandomlyPopulateCells(game.height, game.width, &game.cells)
+	RandomlyPopulateCells(game.height, game.width, game)
 }

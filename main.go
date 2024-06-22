@@ -1,6 +1,7 @@
 package main
 
 import (
+	"conway-v2/conway_utils"
 	"conway-v2/terminal_utils"
 	"fmt"
 )
@@ -12,9 +13,7 @@ func main() {
 	// Hide cursor
 	fmt.Print("\033[?25l")
 
-	conway_grid := NewConwayGrid(1, 3, 10)
+	conway_grid := conway_utils.NewConwayGrid(3, 3, 10)
 
-	for {
-		conway_grid.Run()
-	}
+	conway_grid.Run()
 }
