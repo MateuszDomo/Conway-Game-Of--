@@ -2,7 +2,6 @@ package conway_utils
 
 import (
 	"conway-v2/terminal_utils"
-	"fmt"
 	"math/rand"
 	"time"
 )
@@ -22,9 +21,6 @@ func NewConwayGrid(rows int, cols int, iteration_cycles int) *ConwayGrid {
 
 	states := initializeRandomStates(rows, cols)
 
-	terminal_utils.EnableDebug()
-	fmt.Println(states)
-
 	conway_games := make([][]*ConwayGame, rows)
 	for r := 0; r < rows; r++ {
 		conway_games[r] = make([]*ConwayGame, cols)
@@ -32,7 +28,6 @@ func NewConwayGrid(rows int, cols int, iteration_cycles int) *ConwayGrid {
 			conway_game := NewConwayGame(game_height, game_width, r, c, terminal_utils.TerminalRandomColor())
 			if states[r][c] == 1 {
 				conway_game.RandomlyPopulate()
-				conway_game.WriteGameTerminal(false)
 			}
 			conway_games[r][c] = conway_game
 		}
@@ -53,12 +48,12 @@ func initializeRandomStates(rows int, cols int) [][]int {
 		states[i] = make([]int, cols)
 	}
 
-	for row := 0; row < rows; row++ {
-		for col := 0; col < cols; col++ {
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
 			random := rand.Intn(10)
 
 			if random <= 3 {
-				states[row][col] = 1
+				states[r][c] = 1
 			}
 		}
 	}
@@ -66,8 +61,19 @@ func initializeRandomStates(rows int, cols int) [][]int {
 }
 
 func (grid *ConwayGrid) Run() {
+	initGamesToTerminal(grid)
 	for {
-		//grid.PlayCycle()
+		grid.PlayCycle()
+	}
+}
+
+func initGamesToTerminal(grid *ConwayGrid) {
+	for r := 0; r < grid.rows; r++ {
+		for c := 0; c < grid.cols; c++ {
+			if grid.states[r][c] == 1 {
+				grid.conway_games[r][c].WriteGameTerminal(false)
+			}
+		}
 	}
 }
 
@@ -83,7 +89,7 @@ func (grid *ConwayGrid) PlayCycle() {
 				conway_game.PlayCycle()
 			}
 		}
-		time.Sleep(850 * time.Millisecond)
+		time.Sleep(85 * time.Millisecond)
 	}
 
 	states_cp := make([][]int, grid.rows)

@@ -51,8 +51,16 @@ func TerminalClear() {
 	cmd.Run()
 }
 
-func TerminalSetColor(color TerminalColor) {
-	fmt.Println(color)
+func TerminalSetForegroundColor(color TerminalColor) {
+	fmt.Print(color)
+}
+
+func TerminalSetBackgroundColor(active bool) {
+	if active {
+		fmt.Printf("\033[48;2;220;150;150m")
+	} else {
+		fmt.Printf("\033[49m")
+	}
 }
 
 var colors = [...]TerminalColor{Red, Green, Yellow, Blue, Magenta, Cyan}

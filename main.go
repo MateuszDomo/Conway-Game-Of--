@@ -11,13 +11,11 @@ func main() {
 	terminal_utils.TerminalClear()
 
 	// Hide cursor
+	fmt.Print("\033c") // Rest terminal
 	fmt.Print("\033[?25l")
 
 	rows := 5
 	cols := 5
-
 	conway_grid := conway_utils.NewConwayGrid(rows, cols, 10)
-	conway_utils.RandomlyPopulateCells(rows, cols, conway_grid)
-
 	conway_grid.Run()
 }

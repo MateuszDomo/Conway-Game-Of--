@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"conway-v2/game_utils"
+	"conway-v2/conway_utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

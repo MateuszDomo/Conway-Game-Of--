@@ -30,7 +30,8 @@ func NewConwayGame(height int, width int, gridOffsetH int, gridOffsetW int, colo
 }
 
 func (game *ConwayGame) PlayCycle() {
-	terminal_utils.TerminalSetColor(game.color)
+	terminal_utils.TerminalSetForegroundColor(game.color)
+	terminal_utils.TerminalSetBackgroundColor(true)
 
 	cells_cp := make([][]int, game.height)
 	for i := 0; i < game.height; i++ {
@@ -63,18 +64,24 @@ func (game *ConwayGame) PlayCycle() {
 }
 
 func (game *ConwayGame) WriteGameTerminal(clear bool) {
-	terminal_utils.TerminalSetColor(game.color)
+	terminal_utils.TerminalSetForegroundColor(game.color)
+	terminal_utils.TerminalSetBackgroundColor(!clear)
+
 	for r := 0; r < game.height; r++ {
 		for c := 0; c < game.width; c++ {
-			if game.cells[r][c] == 1 {
-				terminal_row := r + (game.height * game.gridOffsetH)
-				terminal_col := c + (game.width * game.gridOffsetW)
-				if clear {
-					terminal_utils.TerminalWrite(terminal_row, terminal_col, " ")
-				} else {
+			terminal_row := r + (game.height * game.gridOffsetH)
+			terminal_col := c + (game.width * game.gridOffsetW)
+
+			if clear {
+				terminal_utils.TerminalWrite(terminal_row, terminal_col, " ")
+			} else {
+				if game.cells[r][c] == 1 {
 					terminal_utils.TerminalWrite(terminal_row, terminal_col, "█")
+				} else {
+					terminal_utils.TerminalWrite(terminal_row, terminal_col, " ")
 				}
 			}
+
 		}
 	}
 }
