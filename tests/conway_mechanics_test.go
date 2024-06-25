@@ -113,7 +113,7 @@ func TestRandomlyPopulateCells(t *testing.T) {
 		cells2[i] = make([]int, 15)
 	}
 
-	game_utils.RandomlyPopulateCells(15, 15, &cells1)
+	game_utils.andomlyPopulateCells(15, 15, &cells1)
 	game_utils.RandomlyPopulateCells(15, 15, &cells2)
 
 	changed := false

@@ -63,6 +63,7 @@ func (game *ConwayGame) PlayCycle() {
 }
 
 func (game *ConwayGame) WriteGameTerminal(clear bool) {
+	terminal_utils.TerminalSetColor(game.color)
 	for r := 0; r < game.height; r++ {
 		for c := 0; c < game.width; c++ {
 			if game.cells[r][c] == 1 {

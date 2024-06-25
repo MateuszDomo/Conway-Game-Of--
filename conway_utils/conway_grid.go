@@ -2,6 +2,7 @@ package conway_utils
 
 import (
 	"conway-v2/terminal_utils"
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -16,10 +17,13 @@ type ConwayGrid struct {
 
 func NewConwayGrid(rows int, cols int, iteration_cycles int) *ConwayGrid {
 
-	game_height := 8
-	game_width := 15
+	game_height := 5
+	game_width := 10
 
 	states := initializeRandomStates(rows, cols)
+
+	terminal_utils.EnableDebug()
+	fmt.Println(states)
 
 	conway_games := make([][]*ConwayGame, rows)
 	for r := 0; r < rows; r++ {
@@ -28,6 +32,7 @@ func NewConwayGrid(rows int, cols int, iteration_cycles int) *ConwayGrid {
 			conway_game := NewConwayGame(game_height, game_width, r, c, terminal_utils.TerminalRandomColor())
 			if states[r][c] == 1 {
 				conway_game.RandomlyPopulate()
+				conway_game.WriteGameTerminal(false)
 			}
 			conway_games[r][c] = conway_game
 		}
@@ -62,7 +67,7 @@ func initializeRandomStates(rows int, cols int) [][]int {
 
 func (grid *ConwayGrid) Run() {
 	for {
-		grid.PlayCycle()
+		//grid.PlayCycle()
 	}
 }
 

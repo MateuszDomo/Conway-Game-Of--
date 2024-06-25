@@ -13,7 +13,11 @@ func main() {
 	// Hide cursor
 	fmt.Print("\033[?25l")
 
-	conway_grid := conway_utils.NewConwayGrid(5, 5, 10)
+	rows := 5
+	cols := 5
+
+	conway_grid := conway_utils.NewConwayGrid(rows, cols, 10)
+	conway_utils.RandomlyPopulateCells(rows, cols, conway_grid)
 
 	conway_grid.Run()
 }
