@@ -13,7 +13,7 @@ func main() {
 	// Hide cursor
 	fmt.Print("\033[?25l")
 
-	conway_grid := conway_utils.NewConwayGrid(3, 3, 10)
+	conway_grid := conway_utils.NewConwayGrid(5, 5, 10)
 
 	conway_grid.Run()
 }

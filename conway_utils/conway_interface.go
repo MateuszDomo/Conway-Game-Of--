@@ -1,5 +1,7 @@
 package conway_utils
 
+import ()
+
 type ConwayObject interface {
 	IsCellAlive(int, int) bool
 	PopulateCell(int, int)
