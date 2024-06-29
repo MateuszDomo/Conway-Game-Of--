@@ -37,6 +37,7 @@ func (game *ConwayGame) PlayCycle() {
 	for i := 0; i < game.height; i++ {
 		cells_cp[i] = make([]int, game.width)
 	}
+
 	for r := 0; r < game.height; r++ {
 		for c := 0; c < game.width; c++ {
 

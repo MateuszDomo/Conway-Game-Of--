@@ -16,8 +16,10 @@ type ConwayGrid struct {
 
 func NewConwayGrid(rows int, cols int, iteration_cycles int) *ConwayGrid {
 
-	game_height := 5
-	game_width := 10
+	terminal_dimensions := terminal_utils.TerminalGetDimensions()
+
+	game_height := terminal_dimensions.Height / rows
+	game_width := terminal_dimensions.Width / cols
 
 	states := initializeRandomStates(rows, cols)
 
